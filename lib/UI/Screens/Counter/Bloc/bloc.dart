@@ -1,10 +1,11 @@
 import 'package:counter_with_bloc/UI/Screens/Counter/Bloc/events.dart';
 import 'package:counter_with_bloc/UI/Screens/Counter/Bloc/states.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterBloc extends Bloc<CounterEvents, CounterStates> {
   int count = 0;
-  CounterBloc(CounterStates initialState) : super(initialState);
+
   @override
   Stream<CounterStates> mapEventToState(CounterEvents event) async* {
     if (event is IncreamentCounterValue) {
@@ -15,6 +16,7 @@ class CounterBloc extends Bloc<CounterEvents, CounterStates> {
     }
   }
 
+  static CounterBloc get(BuildContext context) => BlocProvider.of(context);
   Stream<CounterStates> _changeValue(String s) async* {
     switch (s) {
       case "in":
@@ -29,4 +31,8 @@ class CounterBloc extends Bloc<CounterEvents, CounterStates> {
     }
     yield SuccessCounterState();
   }
+
+  @override
+  // TODO: implement initialState
+  CounterStates get initialState => throw UnimplementedError();
 }
